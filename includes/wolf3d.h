@@ -18,6 +18,38 @@
 # include "../libft/get_next_line.h"
 # include "../minilibx_macos/mlx.h"
 
+# define HEIGHT 1080
+# define WIDTH 1920
+# define ESCAPE 53
+# define LEFT 123
+# define RIGHT 124
+# define UP 126
+# define DOWN 125
 
+
+//struct to save image and then put to screen...
+typedef struct s_img
+{
+    void *ptr;
+    char *str;
+    int  bpp;
+    int  size_line;
+    int  endian;
+}              t_img;
+
+
+typedef struct s_mlx
+{
+    void *mlx;
+    void *win;
+
+    // map values
+    int  **map; //grid
+    int  map_width; //map width
+    int  map_height; //map height
+
+    t_img  img;
+
+}              t_mlx;
 
 #endif

@@ -1,0 +1,11 @@
+first thing to do in wolf3d..
+1. create a window, using minilibx, so just use the similar window method main...
+2. create a reader that takes in a map and check for all error cases...
+    *when reading the files, what do we account for?
+        *uniform width and height? So like a square shape outline?? --assume this.
+        *what about values? 0 is empty space, but what about negative and positive integers.
+        *also what about large values... like 10000000, what would that do to a map and would
+        *cause a read error? ---use user defined parameters...like any number is a wall, 0 is empty
+        *space, negative number is something else.
+3. So i need to account for player position, player movements of left/right, forward/backwards, camera
+        angles using mouse and keys as well. 
