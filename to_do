@@ -8,4 +8,9 @@ first thing to do in wolf3d..
         *cause a read error? ---use user defined parameters...like any number is a wall, 0 is empty
         *space, negative number is something else.
 3. So i need to account for player position, player movements of left/right, forward/backwards, camera
-        angles using mouse and keys as well. 
+        angles using mouse and keys as well.
+		
+3. Make a series of map tests: 
+*invalid maps: non square maps...
+*missing lengths...
+*add lengths... 

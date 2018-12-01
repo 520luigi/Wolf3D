@@ -6,7 +6,7 @@
 #    By: szheng <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/27 20:34:54 by szheng            #+#    #+#              #
-#    Updated: 2018/11/28 09:39:22 by szheng           ###   ########.fr        #
+#    Updated: 2018/11/29 09:26:37 by szheng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ YELLOW  =   \033[1;33m
 BLUE	=	\033[1;34m
 RED		=	\033[1;31m
 
-SRCS = srcs/main.c
+SRCS = srcs/main.c srcs/color.c srcs/input_hooks.c srcs/movement_loops.c \
+       srcs/raycasting.c srcs/read.c
 
 INC = -I includes/fractol.h -I libft/
 
