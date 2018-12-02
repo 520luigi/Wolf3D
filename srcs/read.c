@@ -12,30 +12,31 @@
 
 #include "../includes/wolf3d.h"
 
-void		ft_mlx_init(t_mlx *m)
-{
-	int		a;
-	int		b;
-
-	build_textures(m);
-	m->m.first_mouse_movement = 1;
-	m->p.dx = -1;
-	m->p.plny = 0.9;
-	a = m->map.width;
-	b = m->map.height - 1;
-    //this checks for full map, so that players need to be on it. add this to setup portion of the map...
-	while (m->map.grid[b][--a] != 0 && b > 0)
-	{
-		if (a <= 0)
-		{
-			a = m->map.width;
-			b--;
-		}
-	}
-	(b < 1) ? ft_puterror("Full map error\n") : 0;
-	m->p.posx = a;
-	m->p.posy = b;
-}
+// void		ft_mlx_init(t_mlx *m)
+// {
+// 	int		a;
+// 	int		b;
+//
+// 	build_textures(m);
+// 	m->m.first_mouse_movement = 1;
+// 	m->p.dx = -1;
+// 	m->p.plny = 0.9;
+//     m->toggle = 0;
+// 	a = m->map.width;
+// 	b = m->map.height - 1;
+//     //this checks for full map, so that players need to be on it. add this to setup portion of the map...
+// 	while (m->map.grid[b][--a] != 0 && b > 0)
+// 	{
+// 		if (a <= 0)
+// 		{
+// 			a = m->map.width;
+// 			b--;
+// 		}
+// 	}
+// 	(b < 1) ? ft_puterror("Full map error\n") : 0;
+// 	m->p.posx = a;
+// 	m->p.posy = b;
+// }
 
 // void	append(int fd, t_mlx *m, char **tmp, char *filename)
 // {

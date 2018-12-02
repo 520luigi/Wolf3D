@@ -12,12 +12,6 @@
 
 #include "../includes/wolf3d.h"
 
-int			exit_hook(void)
-{
-	exit(EXIT_SUCCESS);
-	return (0);
-}
-
 void		draw_square(t_img *img, t_point pt1, t_point pt2, int map_value)
 {
 	int y;
@@ -70,13 +64,13 @@ int			main(int ac, char **av)
     if ((fd = open(av[1], O_RDONLY)) < 0)
         ft_puterror("Error, no file exist\n");
 	read_input(&m, av[1], fd);
-	ft_mlx_init(&m);
-	m.mlx = mlx_init();
-    m.win = mlx_new_window(m.mlx, WIN_WIDTH, WIN_HEIGHT, av[1]);
-	m.minimap.ptr = mlx_new_image(m.mlx, m.map.width * 5, m.map.height * 5);
-	m.minimap.str = mlx_get_data_addr(m.minimap.ptr, &(m.minimap.bpp),
-			&(m.minimap.size_line), &(m.minimap.endian));
-	m.minimap.bpp /= 8;  //change this to 32 and others to see what's up... world map is the mini map lol, i don't think i really need this: just delete it lol...
+	setup(&m);
+	// m.mlx = mlx_init();
+    // m.win = mlx_new_window(m.mlx, WIN_WIDTH, WIN_HEIGHT, av[1]);
+	// m.minimap.ptr = mlx_new_image(m.mlx, m.map.width * 5, m.map.height * 5);
+	// m.minimap.str = mlx_get_data_addr(m.minimap.ptr, &(m.minimap.bpp),
+	// 		&(m.minimap.size_line), &(m.minimap.endian));
+	// m.minimap.bpp /= 8;  //change this to 32 and others to see what's up... world map is the mini map lol, i don't think i really need this: just delete it lol...
 	worldmap(&m);
 	mlx_hook(m.win, 2, 0, key_press_hook, &m);
 	mlx_hook(m.win, 3, 0, key_release_hook, &m); //yes same as

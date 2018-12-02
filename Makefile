@@ -21,7 +21,7 @@ BLUE	=	\033[1;34m
 RED		=	\033[1;31m
 
 SRCS = srcs/main.c srcs/color.c srcs/input_hooks.c srcs/movement_loops.c \
-       srcs/raycasting.c srcs/read.c
+       srcs/raycasting.c srcs/read.c srcs/setup.c
 
 INC = -I includes/fractol.h -I libft/
 

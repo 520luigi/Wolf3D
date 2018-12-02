@@ -28,8 +28,9 @@
 # define A 0
 # define S 1
 # define D 2
-# define Z 6
-# define X 7
+# define Q 12
+# define E 14
+# define T 17
 
 typedef struct	s_point //ok
 {
@@ -100,6 +101,7 @@ typedef struct	s_mlx
 {
 	void		*mlx;
 	void		*win;
+    int         toggle;
 
     t_map		map;
 	t_player	p;
@@ -113,6 +115,8 @@ typedef struct	s_mlx
 }				t_mlx;
 
 void			read_input(t_mlx *m, char *filename, int fd);
+void            setup(t_mlx *m);
+int             exit_hook(void);
 
 void			ft_raycaster(t_mlx *mlx);
 void			ft_mlx_init(t_mlx *mlx);

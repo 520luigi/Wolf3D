@@ -89,10 +89,14 @@ void		ft_put_and_destroy_img(t_mlx *m)
 {
 	mlx_put_image_to_window(m->mlx, m->win, m->img.ptr, 0, 0);
 	mlx_destroy_image(m->mlx, m->img.ptr);
-	light_pixel(&m->minimap, m->p.posx * 5, m->p.posy * 5, 0xCCFF00);
-	mlx_put_image_to_window(m->mlx, m->win, m->minimap.ptr,
-		WIN_WIDTH - m->map.width * 5 - 10, 10);
-	light_pixel(&m->minimap, m->p.posx * 5, m->p.posy * 5, 0);
+    if (!m->toggle)
+    {
+    	light_pixel(&m->minimap, m->p.posx * 5, m->p.posy * 5, 0xCCFF00);
+    	mlx_put_image_to_window(m->mlx, m->win, m->minimap.ptr,
+    		WIN_WIDTH - m->map.width * 5 - 10, 10);
+    	light_pixel(&m->minimap, m->p.posx * 5, m->p.posy * 5, 0);
+    }
+    //the function above put the minimap on, make it toggable...
 }
 
 void		ft_raycaster(t_mlx *m)
