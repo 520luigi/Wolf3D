@@ -12,7 +12,7 @@
 
 #include "../includes/wolf3d.h"
 
-int			exit_hook(void)
+int			exit_hook(void) //ok
 {
 	exit(EXIT_SUCCESS);
 	return (0);
@@ -39,26 +39,14 @@ int		mouse_motion_hook(int x, int y, t_mlx *m) //mouse tracking function
 
 int		key_press_hook(int key, t_mlx *m)
 {
-	(key == E) ? m->m.r_rot = 1 : 0;
-	(key == Q) ? m->m.l_rot = 1 : 0;
 	(key == W || key == UP) ? m->m.f = 1 : 0;
 	(key == S || key == DOWN) ? m->m.b = 1 : 0;
 	(key == A || key == LEFT) ? m->m.l = 1 : 0;
 	(key == D || key == RIGHT) ? m->m.r = 1 : 0;
+    (key == E) ? m->m.r_rot = 1 : 0;
+	(key == Q) ? m->m.l_rot = 1 : 0;
     (key == T) ? m->toggle = !m->toggle: 0;
-	if (key == 53)
-	{
-		mlx_destroy_image(m->mlx, m->minimap.ptr);
-		mlx_destroy_window(m->mlx, m->win);
-		exit(EXIT_SUCCESS);
-	}
-	if (key == 8)
-	{
-		m->p.dx = -1;
-		m->p.dy = 0;
-		m->p.plnx = 0;
-		m->p.plny = 0.9;
-	}
+	(key == ESCAPE) ? exit(EXIT_SUCCESS) : 0;
 	return (0);
 }
 

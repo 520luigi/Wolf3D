@@ -12,10 +12,10 @@
 
 #include "../includes/wolf3d.h"
 
-void   setup(t_mlx *m)
+void   setup(t_mlx *m, char *filename)
 {
     m->mlx = mlx_init();
-    m->win = mlx_new_window(m->mlx, WIN_WIDTH, WIN_HEIGHT, "Wolf3D");
+    m->win = mlx_new_window(m->mlx, WIN_WIDTH, WIN_HEIGHT, filename);
 
     //initialize for storing minimap image
     m->minimap.ptr = mlx_new_image(m->mlx, m->map.width * 5, m->map.height * 5);
@@ -29,7 +29,6 @@ void   setup(t_mlx *m)
     // m->img.endian = 1;
     // m->img.str = mlx_get_data_addr(m->img.ptr, &(m->img.bpp),
     //                 &(m->img.size_line), &(m->img.endian));
-
     int		a;
     int		b;
 
