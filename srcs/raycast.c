@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.c                                       :+:      :+:    :+:   */
+/*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: szheng <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -17,14 +17,14 @@ void		add_texture(t_player *p, int side)
 	double wallx;
 
 	if (side == 0)
-		wallx = p->posy + p->pwalldist * p->raydiry;
+		wallx = p->posy + p->pwalldist * p->rayDirY;
 	else
-		wallx = p->posx + p->pwalldist * p->raydirx;
+		wallx = p->posx + p->pwalldist * p->rayDirX;
 	wallx -= floor(wallx);
 	p->texx = (int)(wallx * 64.0);
-	if (side == 0 && p->raydirx > 0)
+	if (side == 0 && p->rayDirX > 0)
 		p->texx = 64 - p->texx - 1;
-	if (side == 1 && p->raydiry < 0)
+	if (side == 1 && p->rayDirY < 0)
 		p->texx = 64 - p->texx - 1;
 }
 
@@ -36,23 +36,23 @@ int			walldist(t_map *map, t_player *p, int stepx, int stepy)
 	hit = 0;
 	while (hit == 0 && map->x < map->width - 1 && map->y < map->height - 1)
 	{
-		if (p->sidedistx < p->sidedisty)
+		if (p->sideDistX < p->sideDistY)
 		{
-			p->sidedistx += p->deltadistx;
+			p->sideDistX += p->deltaDistX;
 			map->x += stepx;
 			side = 0;
 		}
 		else
 		{
-			p->sidedisty += p->deltadisty;
+			p->sideDistY += p->deltaDistY;
 			map->y += stepy;
 			side = 1;
 		}
 		(map->grid[map->x][map->y] != 0) ? hit = 1 : 0;
 	}
 	p->pwalldist = (side == 0) ?
-			(map->x - p->posx + (1 - stepx) / 2) / p->raydirx :
-			(map->y - p->posy + (1 - stepy) / 2) / p->raydiry;
+			(map->x - p->posx + (1 - stepx) / 2) / p->rayDirX :
+			(map->y - p->posy + (1 - stepy) / 2) / p->rayDirY;
 	add_texture(p, side);
 	return (side);
 }
@@ -62,25 +62,25 @@ int			findwall(t_map *map, t_player *p)
 	int		stepx;
 	int		stepy;
 
-	if (p->raydirx < 0)
+	if (p->rayDirX < 0)
 	{
 		stepx = -1;
-		p->sidedistx = (p->posx - map->x) * p->deltadistx;
+		p->sideDistX = (p->posx - map->x) * p->deltaDistX;
 	}
 	else
 	{
 		stepx = 1;
-		p->sidedistx = (map->x + 1.0 - p->posx) * p->deltadistx;
+		p->sideDistX = (map->x + 1.0 - p->posx) * p->deltaDistX;
 	}
-	if (p->raydiry < 0)
+	if (p->rayDirY < 0)
 	{
 		stepy = -1;
-		p->sidedisty = (p->posy - map->y) * p->deltadisty;
+		p->sideDistY = (p->posy - map->y) * p->deltaDistY;
 	}
 	else
 	{
 		stepy = 1;
-		p->sidedisty = (map->y + 1.0 - p->posy) * p->deltadisty;
+		p->sideDistY = (map->y + 1.0 - p->posy) * p->deltaDistY;
 	}
 	return (walldist(map, p, stepx, stepy));
 }
@@ -89,12 +89,12 @@ void		ft_put_and_destroy_img(t_mlx *m)
 {
 	mlx_put_image_to_window(m->mlx, m->win, m->img.ptr, 0, 0);
 	mlx_destroy_image(m->mlx, m->img.ptr);
-    if (!m->toggle)
+    if (!m->minimap_toggle)
     {
-    	light_pixel(&m->minimap, m->p.posx * 5, m->p.posy * 5, 0xCCFF00);
+    	light_pixel(&(m->minimap), m->player.posx * 5, m->player.posy * 5, 0xCCFF00);
     	mlx_put_image_to_window(m->mlx, m->win, m->minimap.ptr,
     		WIN_WIDTH - m->map.width * 5 - 10, 10);
-    	light_pixel(&m->minimap, m->p.posx * 5, m->p.posy * 5, 0);
+    	light_pixel(&(m->minimap), m->player.posx * 5, m->player.posy * 5, 0);
     }
     //the function above put the minimap on, make it toggable...
 }
@@ -113,13 +113,13 @@ void		ft_raycaster(t_mlx *m)
 	while (++x < WIN_WIDTH)
 	{
 		camerax = 2 * x / (double)(WIN_WIDTH) - 1;
-		m->p.raydirx = m->p.dx + m->p.plnx * camerax;
-		m->p.raydiry = m->p.dy + m->p.plny * camerax;
-		m->map.x = (int)(m->p.posx);
-		m->map.y = (int)(m->p.posy);
-		m->p.deltadistx = fabs(1 / m->p.raydirx);
-		m->p.deltadisty = fabs(1 / m->p.raydiry);
-		side = findwall(&m->map, &m->p);
+		m->player.rayDirX = m->player.dx + m->player.plnx * camerax;
+		m->player.rayDirY = m->player.dy + m->player.plny * camerax;
+		m->map.x = (int)(m->player.posx);
+		m->map.y = (int)(m->player.posy);
+		m->player.deltaDistX = fabs(1 / m->player.rayDirX);
+		m->player.deltaDistY = fabs(1 / m->player.rayDirY);
+		side = findwall(&m->map, &m->player);
 		find_lineheight(m, side, x);
 	}
 	ft_put_and_destroy_img(m);

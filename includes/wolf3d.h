@@ -19,20 +19,21 @@
 # include "../minilibx_macos/mlx.h"
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
+# define RED 0xFF0000
+# define BLUE 0x00BFFF
 # define ESCAPE 53
 # define LEFT 123
 # define RIGHT 124
 # define UP 126
 # define DOWN 125
 # define T 17
+# define Y 16
 # define W 13
 # define A 0
 # define S 1
 # define D 2
 # define Q 12
 # define E 14
-# define RED 0xFF0000
-# define BLUE 0x00BFFF
 
 typedef struct	s_point //ok
 {
@@ -60,7 +61,7 @@ typedef struct	s_map //ok
 
 typedef struct	s_player
 {
-	int			texx;
+	int			texx; //not needed i think...
 	double		od;
 	double		dx;
 	double		dy;
@@ -70,62 +71,64 @@ typedef struct	s_player
 	double		plnx;
 	double		plny;
 	double		sens;
-	double		raydirx;
-	double		raydiry;
-	double		deltadistx;
-	double		deltadisty;
-	double		sidedistx;
-	double		sidedisty;
+    
+	double		rayDirX;
+	double		rayDirY;
+    double		sideDistX;
+    double		sideDistY;
+	double		deltaDistX;
+	double		deltaDistY;
+
 	double		pwalldist;
 }				t_player;
 
-typedef struct	s_movement
+typedef struct	s_movement //ok
 {
-	int			first_mouse_movement;
-	int			f;
-	int			b;
-	int			l;
-	int			r;
-	int			l_rot;
-	int			r_rot;
-	int			x_old;
-	double		rspeed;
+	int			detect_mouse;
+	int			forward;
+	int			backward;
+	int			left;
+	int			right;
+	int			left_rotation;
+	int			right_rotation;
+	double		rotation_speed;
+    int			x_old;
 }				t_movement;
 
-typedef struct	s_tex
+typedef struct	s_texture
 {
 	int			col[4][4096];
 	int			x;
 	int			y;
-}				t_tex;
+}				t_texture;
 
 typedef struct	s_mlx
 {
 	void		*mlx;
 	void		*win;
-    int         toggle;
+    int         minimap_toggle;
+    int         mouse_toggle;
 
     t_point		pt1;
     t_point		pt2;
     t_img		img;
 	t_img		minimap;
     t_map		map;
-	t_player	p;
-	t_movement	m;
-	t_tex		tex;
+	t_player	player;
+	t_movement	move;
+	t_texture	texture;
 }				t_mlx;
 
 void			read_input(t_mlx *m, char *filename, int fd);
 void            setup(t_mlx *m, char *filename);
 int             exit_hook(void);
+int				mouse_motion(int x, int y, t_mlx *m);
+int				key_release(int key, t_mlx *m);
+int				key_press(int key, t_mlx *m);
 
 void			ft_raycaster(t_mlx *mlx);
 void			find_lineheight(t_mlx *mlx, int side, int x);
-int				key_release_hook(int key, t_mlx *mlx);
 int				move_loop(t_mlx *mlx);
-int				mouse_motion_hook(int x, int y, t_mlx *mlx);
-int				key_press_hook(int key, t_mlx *mlx);
-//void			light_pixel(t_img *img, int x, int y, unsigned int color);
 void			light_pixel(t_img *img, int x, int y, unsigned int color);
 void			build_textures(t_mlx *mlx); //look into how to make this a solid color of 4 kinds, no design needed just an easy version...
 
