@@ -38,13 +38,13 @@
 # define Q 12
 # define E 14
 
-typedef struct	s_point //ok
+typedef struct	s_point
 {
 	int			x;
 	int			y;
 }				t_point;
 
-typedef struct	s_img  //ok
+typedef struct	s_img
 {
 	void		*ptr;
 	char		*str;
@@ -53,7 +53,7 @@ typedef struct	s_img  //ok
 	int			endian;
 }				t_img;
 
-typedef struct	s_map //ok
+typedef struct	s_map
 {
 	int			**grid;
 	int			width;
@@ -64,28 +64,24 @@ typedef struct	s_map //ok
 
 typedef struct	s_player
 {
-	int			texx; //not needed i think...
-	double		od;
-	double		dx;
-	double		dy;
-	double		opln;
-	double		posx;
-	double		posy;
-	double		plnx;
-	double		plny;
-	double		sens;
-
+	double		oldDirX;
+    double		posX;
+	double		posY;
+	double		dirX;
+	double		dirY;
+    double		planeX;
+    double		planeY;
+	double		oldPlaneX;
 	double		rayDirX;
 	double		rayDirY;
     double		sideDistX;
     double		sideDistY;
 	double		deltaDistX;
 	double		deltaDistY;
-
-	double		pwalldist;
+	double		pWallDist;
 }				t_player;
 
-typedef struct	s_movement //ok
+typedef struct	s_movement
 {
 	int			detect_mouse;
 	int			forward;
@@ -98,22 +94,23 @@ typedef struct	s_movement //ok
     int			x_old;
 }				t_movement;
 
-typedef struct  s_draw //ok
+typedef struct  s_draw
 {
     int         lineheight;
     int         start;
     int         end;
 }               t_draw;
 
-typedef struct	s_texture //ok
+typedef struct	s_texture
 {
+    int         texX;
 	int			pat[4][4096];
 	int			x;
 	int			y;
     int         num;
 }				t_texture;
 
-typedef struct	s_mlx //need instruction toggle...
+typedef struct	s_mlx
 {
 	void		*mlx;
 	void		*win;
@@ -125,7 +122,7 @@ typedef struct	s_mlx //need instruction toggle...
     t_img		img;
 	t_img		minimap;
     t_map		map;
-	t_player	player;
+	t_player	pl;
 	t_movement	move;
     t_draw      draw;
 	t_texture	texture;

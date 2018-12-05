@@ -19,4 +19,4 @@ first thing to do in wolf3d..
 5. add instructions on movement, make this a toggable, print instruction when needed...
 
 
-DONE FILES: main.c read.c input_hooks.c, color.c
+DONE FILES: main.c read.c input_hooks.c, color.c, raycast.c

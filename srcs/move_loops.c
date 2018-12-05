@@ -12,25 +12,25 @@
 
 #include "../includes/wolf3d.h"
 
-void	move_rotation(t_mlx *m, double r_speed)
+void	move_rotation(t_mlx *m, double r)
 {
 	if (m->move.right_rotation)
 	{
-		m->player.od = m->player.dx;
-		m->player.dx = m->player.dx * cos(-r_speed) - m->player.dy * sin(-r_speed);
-		m->player.dy = m->player.od * sin(-r_speed) + m->player.dy * cos(-r_speed);
-		m->player.opln = m->player.plnx;
-		m->player.plnx = m->player.plnx * cos(-r_speed) - m->player.plny * sin(-r_speed);
-		m->player.plny = m->player.opln * sin(-r_speed) + m->player.plny * cos(-r_speed);
+		m->pl.oldDirX = m->pl.dirX;
+		m->pl.dirX = m->pl.dirX * cos(-r) - m->pl.dirY * sin(-r);
+		m->pl.dirY = m->pl.oldDirX * sin(-r) + m->pl.dirY * cos(-r);
+		m->pl.oldPlaneX = m->pl.planeX;
+		m->pl.planeX = m->pl.planeX * cos(-r) - m->pl.planeY * sin(-r);
+		m->pl.planeY = m->pl.oldPlaneX * sin(-r) + m->pl.planeY * cos(-r);
 	}
 	else
 	{
-		m->player.od = m->player.dx;
-		m->player.dx = m->player.dx * cos(r_speed) - m->player.dy * sin(r_speed);
-		m->player.dy = m->player.od * sin(r_speed) + m->player.dy * cos(r_speed);
-		m->player.opln = m->player.plnx;
-		m->player.plnx = m->player.plnx * cos(r_speed) - m->player.plny * sin(r_speed);
-		m->player.plny = m->player.opln * sin(r_speed) + m->player.plny * cos(r_speed);
+		m->pl.oldDirX = m->pl.dirX;
+		m->pl.dirX = m->pl.dirX * cos(r) - m->pl.dirY * sin(r);
+		m->pl.dirY = m->pl.oldDirX * sin(r) + m->pl.dirY * cos(r);
+		m->pl.oldPlaneX = m->pl.planeX;
+		m->pl.planeX = m->pl.planeX * cos(r) - m->pl.planeY * sin(r);
+		m->pl.planeY = m->pl.oldPlaneX * sin(r) + m->pl.planeY * cos(r);
 	}
 	if (m->move.rotation_speed != 0)
 		m->move.rotation_speed = 0;
@@ -40,20 +40,20 @@ void	move_forward(t_mlx *m, double movespeed)
 {
 	if (m->move.forward)
 	{
-		if ((m->map.grid[(int)(m->player.posx + m->player.dx)]
-					[(int)(m->player.posy + m->player.dy)]) < 1)
+		if ((m->map.grid[(int)(m->pl.posX + m->pl.dirX)]
+					[(int)(m->pl.posY + m->pl.dirY)]) < 1)
 		{
-			m->player.posx += m->player.dx * movespeed;
-			m->player.posy += m->player.dy * movespeed;
+			m->pl.posX += m->pl.dirX * movespeed;
+			m->pl.posY += m->pl.dirY * movespeed;
 		}
 	}
 	else
 	{
-		if (!(m->map.grid[(int)(m->player.posx - m->player.dx)]
-					[(int)(m->player.posy - m->player.dy)]))
+		if (!(m->map.grid[(int)(m->pl.posX - m->pl.dirX)]
+					[(int)(m->pl.posY - m->pl.dirY)]))
 		{
-			m->player.posx += m->player.dx * -movespeed;
-			m->player.posy += m->player.dy * -movespeed;
+			m->pl.posX += m->pl.dirX * -movespeed;
+			m->pl.posY += m->pl.dirY * -movespeed;
 		}
 	}
 }
@@ -62,20 +62,20 @@ void	move_left(t_mlx *m, double movespeed)
 {
 	if (m->move.left)
 	{
-		if (!(m->map.grid[(int)(m->player.posx - m->player.dy)]
-					[(int)(m->player.posy + m->player.dx)]))
+		if (!(m->map.grid[(int)(m->pl.posX - m->pl.dirY)]
+					[(int)(m->pl.posY + m->pl.dirX)]))
 		{
-			m->player.posx -= m->player.dy * movespeed;
-			m->player.posy += m->player.dx * movespeed;
+			m->pl.posX -= m->pl.dirY * movespeed;
+			m->pl.posY += m->pl.dirX * movespeed;
 		}
 	}
 	else
 	{
-		if (!(m->map.grid[(int)(m->player.posx + m->player.dy)]
-					[(int)(m->player.posy - m->player.dx)]))
+		if (!(m->map.grid[(int)(m->pl.posX + m->pl.dirY)]
+					[(int)(m->pl.posY - m->pl.dirX)]))
 		{
-			m->player.posx -= m->player.dy * -movespeed;
-			m->player.posy += m->player.dx * -movespeed;
+			m->pl.posX -= m->pl.dirY * -movespeed;
+			m->pl.posY += m->pl.dirX * -movespeed;
 		}
 	}
 }

@@ -67,8 +67,8 @@ void        check_full_map(t_mlx *m)
         }
     }
     (rows < 1) ? ft_puterror("Full map error\n") : 0;
-    m->player.posx = cols;
-    m->player.posy = rows;
+    m->pl.posX = cols;
+    m->pl.posY = rows;
 }
 
 void   setup(t_mlx *m, char *filename)
@@ -81,10 +81,10 @@ void   setup(t_mlx *m, char *filename)
 	m->minimap.bpp /= 8;
     create_textures(m, 0, 0);
     m->move.detect_mouse = 1;
-    m->player.dx = -1;
-    m->player.dy = 0;
-    m->player.plnx = 0;
-    m->player.plny = 0.9;
+    m->pl.dirX = -1;
+    m->pl.dirY = 0;
+    m->pl.planeX = 0;
+    m->pl.planeY = 0.9;
     m->minimap_toggle = 0;
     m->mouse_toggle = 0;
     check_full_map(m);

@@ -62,7 +62,7 @@ void		draw(t_mlx *m, int x)
 		{
 			depth = y * 256 - WIN_HEIGHT * 128 + m->draw.lineheight * 128;
 			texY = ((depth * 64) / m->draw.lineheight) / 256;
-			color = m->texture.pat[m->texture.num][64 * texY + m->player.texx];
+			color = m->texture.pat[m->texture.num][64 * texY + m->texture.texX];
 			put_pixel(&(m->img), x, y++, color);
 		}
 		put_pixel(&(m->img), x, y++, GRAY);
@@ -71,7 +71,7 @@ void		draw(t_mlx *m, int x)
 
 void		calc_lineheight(t_mlx *m, int side, int x)
 {
-	m->draw.lineheight = (int)(WIN_HEIGHT / m->player.pwalldist);
+	m->draw.lineheight = (int)(WIN_HEIGHT / m->pl.pWallDist);
 	m->draw.start = -m->draw.lineheight / 2 + WIN_HEIGHT / 2;
 	if (m->draw.start < 0)
         m->draw.start = 0;
@@ -79,11 +79,11 @@ void		calc_lineheight(t_mlx *m, int side, int x)
 	if (m->draw.end >= WIN_HEIGHT)
         m->draw.end = WIN_HEIGHT - 1;
 	m->texture.num = 0;
-	if (side == 0 && m->player.rayDirX < 0)
+	if (side == 0 && m->pl.rayDirX < 0)
         m->texture.num = 1 ;
-	if (side == 1 && m->player.rayDirY < 0)
+	if (side == 1 && m->pl.rayDirY < 0)
         m->texture.num = 2 ;
-	if (side == 1 && m->player.rayDirY > 0)
+	if (side == 1 && m->pl.rayDirY > 0)
         m->texture.num = 3 ;
 	draw(m, x);
 }
