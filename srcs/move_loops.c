@@ -6,7 +6,7 @@
 /*   By: szheng <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 22:11:59 by szheng            #+#    #+#             */
-/*   Updated: 2018/11/29 22:12:01 by szheng           ###   ########.fr       */
+/*   Updated: 2018/12/05 12:16:51 by szheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@ void	move_forward_backward(t_mlx *m, double ms)
 {
 	if (m->move.forward)
 	{
-		if ((m->map.grid[(int)(m->pl.posX + m->pl.dirX)]
-					[(int)(m->pl.posY + m->pl.dirY)]) < 1)
+		if ((m->map.grid[(int)(m->pl.pos_x + m->pl.dir_x)]
+					[(int)(m->pl.pos_y + m->pl.dir_y)]) < 1)
 		{
-			m->pl.posX += m->pl.dirX * ms;
-			m->pl.posY += m->pl.dirY * ms;
+			m->pl.pos_x += m->pl.dir_x * ms;
+			m->pl.pos_y += m->pl.dir_y * ms;
 		}
 	}
 	else if (m->move.backward)
 	{
-		if (!(m->map.grid[(int)(m->pl.posX - m->pl.dirX)]
-					[(int)(m->pl.posY - m->pl.dirY)]))
+		if (!(m->map.grid[(int)(m->pl.pos_x - m->pl.dir_x)]
+					[(int)(m->pl.pos_y - m->pl.dir_y)]))
 		{
-			m->pl.posX -= m->pl.dirX * ms;
-			m->pl.posY -= m->pl.dirY * ms;
+			m->pl.pos_x -= m->pl.dir_x * ms;
+			m->pl.pos_y -= m->pl.dir_y * ms;
 		}
 	}
 }
@@ -38,20 +38,20 @@ void	move_left_right(t_mlx *m, double ms)
 {
 	if (m->move.left)
 	{
-		if (!(m->map.grid[(int)(m->pl.posX - m->pl.dirY)]
-					[(int)(m->pl.posY + m->pl.dirX)]))
+		if (!(m->map.grid[(int)(m->pl.pos_x - m->pl.dir_y)]
+					[(int)(m->pl.pos_y + m->pl.dir_x)]))
 		{
-			m->pl.posX -= m->pl.dirY * ms;
-			m->pl.posY += m->pl.dirX * ms;
+			m->pl.pos_x -= m->pl.dir_y * ms;
+			m->pl.pos_y += m->pl.dir_x * ms;
 		}
 	}
 	else if (m->move.right)
 	{
-		if (!(m->map.grid[(int)(m->pl.posX + m->pl.dirY)]
-					[(int)(m->pl.posY - m->pl.dirX)]))
+		if (!(m->map.grid[(int)(m->pl.pos_x + m->pl.dir_y)]
+					[(int)(m->pl.pos_y - m->pl.dir_x)]))
 		{
-			m->pl.posX += m->pl.dirY * ms;
-			m->pl.posY -= m->pl.dirX * ms;
+			m->pl.pos_x += m->pl.dir_y * ms;
+			m->pl.pos_y -= m->pl.dir_x * ms;
 		}
 	}
 }
@@ -60,21 +60,21 @@ void	move_rotation(t_mlx *m, double rs)
 {
 	if (m->move.right_rotation)
 	{
-		m->pl.oldDirX = m->pl.dirX;
-		m->pl.dirX = m->pl.dirX * cos(rs) + m->pl.dirY * sin(rs);
-		m->pl.dirY = m->pl.dirY * cos(rs) - m->pl.oldDirX * sin(rs);
-		m->pl.oldPlaneX = m->pl.planeX;
-		m->pl.planeX = m->pl.planeX * cos(rs) + m->pl.planeY * sin(rs);
-		m->pl.planeY = m->pl.planeY * cos(rs) - m->pl.oldPlaneX * sin(rs);
+		m->pl.old_dir_x = m->pl.dir_x;
+		m->pl.dir_x = m->pl.dir_x * cos(rs) + m->pl.dir_y * sin(rs);
+		m->pl.dir_y = m->pl.dir_y * cos(rs) - m->pl.old_dir_x * sin(rs);
+		m->pl.old_plane_x = m->pl.plane_x;
+		m->pl.plane_x = m->pl.plane_x * cos(rs) + m->pl.plane_y * sin(rs);
+		m->pl.plane_y = m->pl.plane_y * cos(rs) - m->pl.old_plane_x * sin(rs);
 	}
 	else
 	{
-		m->pl.oldDirX = m->pl.dirX;
-		m->pl.dirX = m->pl.dirX * cos(rs) - m->pl.dirY * sin(rs);
-		m->pl.dirY = m->pl.oldDirX * sin(rs) + m->pl.dirY * cos(rs);
-		m->pl.oldPlaneX = m->pl.planeX;
-		m->pl.planeX = m->pl.planeX * cos(rs) - m->pl.planeY * sin(rs);
-		m->pl.planeY = m->pl.oldPlaneX * sin(rs) + m->pl.planeY * cos(rs);
+		m->pl.old_dir_x = m->pl.dir_x;
+		m->pl.dir_x = m->pl.dir_x * cos(rs) - m->pl.dir_y * sin(rs);
+		m->pl.dir_y = m->pl.old_dir_x * sin(rs) + m->pl.dir_y * cos(rs);
+		m->pl.old_plane_x = m->pl.plane_x;
+		m->pl.plane_x = m->pl.plane_x * cos(rs) - m->pl.plane_y * sin(rs);
+		m->pl.plane_y = m->pl.old_plane_x * sin(rs) + m->pl.plane_y * cos(rs);
 	}
 	if (m->move.rotation_speed != 0)
 		m->move.rotation_speed = 0;

@@ -6,7 +6,7 @@
 /*   By: szheng <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 20:35:06 by szheng            #+#    #+#             */
-/*   Updated: 2018/12/03 11:29:44 by szheng           ###   ########.fr       */
+/*   Updated: 2018/12/05 11:59:22 by szheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,44 +51,44 @@ void		minimap(t_mlx *m)
 	}
 }
 
-void        check_full_map(t_mlx *m)
+void		check_full_map(t_mlx *m)
 {
-    int cols;
-    int rows;
+	int	cols;
+	int	rows;
 
-    cols = m->map.wd;
-    rows = m->map.ht - 1;
-    while (m->map.grid[rows][--cols] != 0 && rows > 0)
-    {
-        if (cols <= 0)
-        {
-            cols = m->map.wd;
-            rows--;
-        }
-    }
-    (rows < 1) ? ft_puterror("Full map error\n") : 0;
-    m->pl.posX = cols;
-    m->pl.posY = rows;
+	cols = m->map.wd;
+	rows = m->map.ht - 1;
+	while (m->map.grid[rows][--cols] != 0 && rows > 0)
+	{
+		if (cols <= 0)
+		{
+			cols = m->map.wd;
+			rows--;
+		}
+	}
+	(rows < 1) ? ft_puterror("Full map error\n") : 0;
+	m->pl.pos_x = cols;
+	m->pl.pos_y = rows;
 }
 
-void   setup(t_mlx *m, char *filename)
+void		setup(t_mlx *m, char *filename)
 {
-    m->mlx = mlx_init();
-    m->win = mlx_new_window(m->mlx, WIN_WIDTH, WIN_HEIGHT, filename);
-    m->minimap.ptr = mlx_new_image(m->mlx, m->map.wd * 5, m->map.ht * 5);
+	m->mlx = mlx_init();
+	m->win = mlx_new_window(m->mlx, WIN_WIDTH, WIN_HEIGHT, filename);
+	m->minimap.ptr = mlx_new_image(m->mlx, m->map.wd * 5, m->map.ht * 5);
 	m->minimap.str = mlx_get_data_addr(m->minimap.ptr, &(m->minimap.bpp),
 			&(m->minimap.size_line), &(m->minimap.endian));
 	m->minimap.bpp /= 8;
-    create_textures(m, 0, 0);
-    m->move.detect_mouse = 1;
-    m->pl.dirX = -1;
-    m->pl.dirY = 0;
-    m->pl.planeX = 0;
-    m->pl.planeY = 0.9;
-    m->minimap_toggle = 0;
-    m->mouse_toggle = 0;
-    m->instruction_toggle = 0;
-    check_full_map(m);
+	create_textures(m, 0, 0);
+	m->move.detect_mouse = 1;
+	m->pl.dir_x = -1;
+	m->pl.dir_y = 0;
+	m->pl.plane_x = 0;
+	m->pl.plane_y = 0.9;
+	m->minimap_toggle = 0;
+	m->mouse_toggle = 0;
+	m->instruction_toggle = 0;
+	check_full_map(m);
 }
 
 int			main(int ac, char **av)
