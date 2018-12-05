@@ -15,6 +15,8 @@ first thing to do in wolf3d..
 *missing lengths...
 *add lengths...
 
-4. redo movement loops, raycasting, clean up setup, and totally redo colors, how about input hooks? let me see real quick..
+4. redo movement loops, raycasting, and totally redo colors, how about input hooks? let me see real quick..
 5. add instructions on movement, make this a toggable, print instruction when needed...
-6. make a struct for the line height color variation.
+
+
+DONE FILES: main.c read.c input_hooks.c, color.c

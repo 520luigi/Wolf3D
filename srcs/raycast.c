@@ -91,15 +91,14 @@ void		ft_put_and_destroy_img(t_mlx *m)
 	mlx_destroy_image(m->mlx, m->img.ptr);
     if (!m->minimap_toggle)
     {
-    	light_pixel(&(m->minimap), m->player.posx * 5, m->player.posy * 5, 0xCCFF00);
+    	put_pixel(&(m->minimap), m->player.posx * 5, m->player.posy * 5, RED);
     	mlx_put_image_to_window(m->mlx, m->win, m->minimap.ptr,
     		WIN_WIDTH - m->map.width * 5 - 10, 10);
-    	light_pixel(&(m->minimap), m->player.posx * 5, m->player.posy * 5, 0);
+    	put_pixel(&(m->minimap), m->player.posx * 5, m->player.posy * 5, 0);
     }
-    //the function above put the minimap on, make it toggable...
 }
 
-void		ft_raycaster(t_mlx *m)
+void		raycast(t_mlx *m)
 {
 	int		x;
 	double	camerax;
@@ -120,7 +119,7 @@ void		ft_raycaster(t_mlx *m)
 		m->player.deltaDistX = fabs(1 / m->player.rayDirX);
 		m->player.deltaDistY = fabs(1 / m->player.rayDirY);
 		side = findwall(&m->map, &m->player);
-		find_lineheight(m, side, x);
+		calc_lineheight(m, side, x);
 	}
 	ft_put_and_destroy_img(m);
 }

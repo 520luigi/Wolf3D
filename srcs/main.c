@@ -22,9 +22,9 @@ void		draw_minimap(t_mlx *m, int map_value)
 		while (y_inc < 5)
 		{
 			if (map_value > 0)
-				light_pixel(&(m->minimap), m->pt1.y + y_inc++, m->pt1.x, BLUE);
+				put_pixel(&(m->minimap), m->pt1.y + y_inc++, m->pt1.x, WHITE);
 			else if (map_value < 0)
-				light_pixel(&(m->minimap), m->pt1.y + y_inc++, m->pt1.x, RED);
+				put_pixel(&(m->minimap), m->pt1.y + y_inc++, m->pt1.x, BLUE);
 		}
 		(m->pt1.x)++;
 	}
@@ -79,7 +79,7 @@ void   setup(t_mlx *m, char *filename)
 	m->minimap.str = mlx_get_data_addr(m->minimap.ptr, &(m->minimap.bpp),
 			&(m->minimap.size_line), &(m->minimap.endian));
 	m->minimap.bpp /= 8;
-    build_textures(m);
+    create_textures(m, 0, 0);
     m->move.detect_mouse = 1;
     m->player.dx = -1;
     m->player.dy = 0;

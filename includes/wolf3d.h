@@ -21,6 +21,9 @@
 # define WIN_HEIGHT 720
 # define RED 0xFF0000
 # define BLUE 0x00BFFF
+# define SKYBLUE 0x0099db
+# define WHITE 0xFFFFFF
+# define GRAY  0x303030
 # define ESCAPE 53
 # define LEFT 123
 # define RIGHT 124
@@ -71,7 +74,7 @@ typedef struct	s_player
 	double		plnx;
 	double		plny;
 	double		sens;
-    
+
 	double		rayDirX;
 	double		rayDirY;
     double		sideDistX;
@@ -95,14 +98,22 @@ typedef struct	s_movement //ok
     int			x_old;
 }				t_movement;
 
-typedef struct	s_texture
+typedef struct  s_draw //ok
 {
-	int			col[4][4096];
+    int         lineheight;
+    int         start;
+    int         end;
+}               t_draw;
+
+typedef struct	s_texture //ok
+{
+	int			pat[4][4096];
 	int			x;
 	int			y;
+    int         num;
 }				t_texture;
 
-typedef struct	s_mlx
+typedef struct	s_mlx //need instruction toggle...
 {
 	void		*mlx;
 	void		*win;
@@ -116,6 +127,7 @@ typedef struct	s_mlx
     t_map		map;
 	t_player	player;
 	t_movement	move;
+    t_draw      draw;
 	t_texture	texture;
 }				t_mlx;
 
@@ -125,11 +137,10 @@ int             exit_hook(void);
 int				mouse_motion(int x, int y, t_mlx *m);
 int				key_release(int key, t_mlx *m);
 int				key_press(int key, t_mlx *m);
-
-void			ft_raycaster(t_mlx *mlx);
-void			find_lineheight(t_mlx *mlx, int side, int x);
+void			put_pixel(t_img *img, int x, int y, unsigned int color);
+void			raycast(t_mlx *mlx);
+void			calc_lineheight(t_mlx *mlx, int side, int x);
 int				move_loop(t_mlx *mlx);
-void			light_pixel(t_img *img, int x, int y, unsigned int color);
-void			build_textures(t_mlx *mlx); //look into how to make this a solid color of 4 kinds, no design needed just an easy version...
+void			create_textures(t_mlx *mlx, int x, int y);
 
 #endif

@@ -12,13 +12,13 @@
 
 #include "../includes/wolf3d.h"
 
-int			exit_hook(void) //ok
+int			exit_hook(void)
 {
 	exit(EXIT_SUCCESS);
 	return (0);
 }
 
-int		mouse_motion(int x, int y, t_mlx *m) //ok i guess
+int		mouse_motion(int x, int y, t_mlx *m)
 {
 	double rotation_speed;
 
@@ -40,7 +40,7 @@ int		mouse_motion(int x, int y, t_mlx *m) //ok i guess
 	return (0);
 }
 
-int		key_press(int key, t_mlx *m) //ok
+int		key_press(int key, t_mlx *m)
 {
 	(key == W || key == UP) ? m->move.forward = 1 : 0;
 	(key == S || key == DOWN) ? m->move.backward = 1 : 0;
@@ -54,7 +54,7 @@ int		key_press(int key, t_mlx *m) //ok
 	return (0);
 }
 
-int		key_release(int key, t_mlx *m) //ok
+int		key_release(int key, t_mlx *m)
 {
 	(key == W || key == UP) ? m->move.forward = 0 : 0;
 	(key == S || key == DOWN) ? m->move.backward = 0 : 0;

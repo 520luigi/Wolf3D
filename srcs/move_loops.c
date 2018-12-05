@@ -95,6 +95,6 @@ int		move_loop(t_mlx *m)
 		move_rotation(m, rotation_speed);
 	if (m->move.rotation_speed != 0)
 		move_rotation(m, m->move.rotation_speed);
-	ft_raycaster(m);
+	raycast(m);
 	return (0);
 }
