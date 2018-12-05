@@ -49,7 +49,8 @@ int		key_press(int key, t_mlx *m)
     (key == E) ? m->move.right_rotation = 1 : 0;
 	(key == Q) ? m->move.left_rotation = 1 : 0;
     (key == T) ? m->minimap_toggle = !m->minimap_toggle: 0;
-    (key == Y) ? m->mouse_toggle = !m ->mouse_toggle: 0;
+    (key == Y) ? m->mouse_toggle = !m->mouse_toggle: 0;
+    (key == I) ? m->instruction_toggle = !m->instruction_toggle: 0; 
 	(key == ESCAPE) ? exit(EXIT_SUCCESS) : 0;
 	return (0);
 }

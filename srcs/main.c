@@ -36,10 +36,10 @@ void		minimap(t_mlx *m)
 	int		row;
 
 	row = -1;
-	while (++row < m->map.height)
+	while (++row < m->map.ht)
 	{
 		col = -1;
-		while (++col < m->map.width)
+		while (++col < m->map.wd)
 		{
 			m->pt1.x = col * 5;
 			m->pt1.y = row * 5;
@@ -56,13 +56,13 @@ void        check_full_map(t_mlx *m)
     int cols;
     int rows;
 
-    cols = m->map.width;
-    rows = m->map.height - 1;
+    cols = m->map.wd;
+    rows = m->map.ht - 1;
     while (m->map.grid[rows][--cols] != 0 && rows > 0)
     {
         if (cols <= 0)
         {
-            cols = m->map.width;
+            cols = m->map.wd;
             rows--;
         }
     }
@@ -75,7 +75,7 @@ void   setup(t_mlx *m, char *filename)
 {
     m->mlx = mlx_init();
     m->win = mlx_new_window(m->mlx, WIN_WIDTH, WIN_HEIGHT, filename);
-    m->minimap.ptr = mlx_new_image(m->mlx, m->map.width * 5, m->map.height * 5);
+    m->minimap.ptr = mlx_new_image(m->mlx, m->map.wd * 5, m->map.ht * 5);
 	m->minimap.str = mlx_get_data_addr(m->minimap.ptr, &(m->minimap.bpp),
 			&(m->minimap.size_line), &(m->minimap.endian));
 	m->minimap.bpp /= 8;
@@ -87,6 +87,7 @@ void   setup(t_mlx *m, char *filename)
     m->pl.planeY = 0.9;
     m->minimap_toggle = 0;
     m->mouse_toggle = 0;
+    m->instruction_toggle = 0;
     check_full_map(m);
 }
 
@@ -106,7 +107,7 @@ int			main(int ac, char **av)
 	mlx_hook(m.win, 3, 0, key_release, &m);
 	mlx_hook(m.win, 6, 0, mouse_motion, &m);
 	mlx_hook(m.win, 17, 0, exit_hook, 0);
-	mlx_loop_hook(m.mlx, move_loop, &m);
+	mlx_loop_hook(m.mlx, movement_loop, &m);
 	mlx_loop(m.mlx);
 	return (0);
 }

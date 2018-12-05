@@ -18,24 +18,26 @@ void		put_and_clear_img(t_mlx *m)
 	mlx_destroy_image(m->mlx, m->img.ptr);
     if (!m->minimap_toggle)
     {
-    	put_pixel(&(m->minimap), m->pl.posX * 5, m->pl.posY * 5, RED);
+    	put_pixel(&(m->minimap), m->pl.posX * 5, m->pl.posY * 5, WHITE);
     	mlx_put_image_to_window(m->mlx, m->win, m->minimap.ptr,
-    		WIN_WIDTH - m->map.width * 5 - 10, 10);
+    		WIN_WIDTH - m->map.wd * 5 - 10, 10);
     	put_pixel(&(m->minimap), m->pl.posX * 5, m->pl.posY * 5, 0);
     }
+    if (!m->instruction_toggle)
+        print_instructions(m);
 }
 
-void		calc_texture(t_mlx *m, int side, double wallX)
+void		calc_texture(t_mlx *m, int side, double wall_x)
 {
     int length;
 
     length = 64;
 	if (side == 0)
-		wallX = m->pl.posY + m->pl.pWallDist * m->pl.rayDirY;
+		wall_x = m->pl.posY + m->pl.pWallDist * m->pl.rayDirY;
 	else
-		wallX = m->pl.posX + m->pl.pWallDist * m->pl.rayDirX;
-	wallX -= floor(wallX);
-	m->texture.texX = (int)(wallX * length);
+		wall_x = m->pl.posX + m->pl.pWallDist * m->pl.rayDirX;
+	wall_x -= floor(wall_x);
+	m->texture.texX = (int)(wall_x * length);
 	if (side == 0 && m->pl.rayDirX > 0)
 		m->texture.texX = length - m->texture.texX - 1;
 	if (side == 1 && m->pl.rayDirY < 0)
@@ -45,7 +47,7 @@ void		calc_texture(t_mlx *m, int side, double wallX)
 int			perform_dda(t_mlx *m, int step_x, int step_y, int hit, int side)
 {
     hit = 0;
-	while (hit == 0 && m->map.x < m->map.width-1 && m->map.y < m->map.height-1)
+	while (hit == 0 && m->map.x < m->map.wd - 1 && m->map.y < m->map.ht - 1)
 	{
 		if (m->pl.sideDistX < m->pl.sideDistY)
 		{
@@ -81,7 +83,7 @@ int			find_wall(t_mlx *m, int step_x, int step_y)
 	else
 	{
 		step_x = 1;
-		m->pl.sideDistX = (m->map.x+1.0 - m->pl.posX) * m->pl.deltaDistX;
+		m->pl.sideDistX = (m->map.x + 1.0 - m->pl.posX) * m->pl.deltaDistX;
 	}
 	if (m->pl.rayDirY < 0)
 	{
@@ -91,7 +93,7 @@ int			find_wall(t_mlx *m, int step_x, int step_y)
 	else
 	{
 		step_y = 1;
-		m->pl.sideDistY = (m->map.y+1.0 - m->pl.posY) * m->pl.deltaDistY;
+		m->pl.sideDistY = (m->map.y + 1.0 - m->pl.posY) * m->pl.deltaDistY;
 	}
 	return (perform_dda(m, step_x, step_y, 0, 0));
 }

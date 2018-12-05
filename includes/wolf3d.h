@@ -31,6 +31,7 @@
 # define DOWN 125
 # define T 17
 # define Y 16
+# define I 34
 # define W 13
 # define A 0
 # define S 1
@@ -56,8 +57,8 @@ typedef struct	s_img
 typedef struct	s_map
 {
 	int			**grid;
-	int			width;
-	int			height;
+	int			wd;
+	int			ht;
 	int			x;
 	int			y;
 }				t_map;
@@ -116,6 +117,7 @@ typedef struct	s_mlx
 	void		*win;
     int         minimap_toggle;
     int         mouse_toggle;
+    int         instruction_toggle;
 
     t_point		pt1;
     t_point		pt2;
@@ -134,10 +136,11 @@ int             exit_hook(void);
 int				mouse_motion(int x, int y, t_mlx *m);
 int				key_release(int key, t_mlx *m);
 int				key_press(int key, t_mlx *m);
+void            print_instructions(t_mlx *m);
 void			put_pixel(t_img *img, int x, int y, unsigned int color);
 void			raycast(t_mlx *mlx);
 void			calc_lineheight(t_mlx *mlx, int side, int x);
-int				move_loop(t_mlx *mlx);
+int				movement_loop(t_mlx *mlx);
 void			create_textures(t_mlx *mlx, int x, int y);
 
 #endif

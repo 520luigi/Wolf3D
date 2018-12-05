@@ -12,6 +12,22 @@
 
 #include "../includes/wolf3d.h"
 
+void	print_instructions(t_mlx *m)
+{
+	mlx_string_put(m->mlx, m->win, 8, 0, WHITE,
+		"Toggle Instructions > i");
+	mlx_string_put(m->mlx, m->win, 8, 15, WHITE,
+        "Toggle Mouse Rotation > y");
+	mlx_string_put(m->mlx, m->win, 8, 30, WHITE,
+		"Toggle Minimap > t");
+	mlx_string_put(m->mlx, m->win, 8, 45, WHITE,
+		"Move > WASD or Arrow Keys");
+	mlx_string_put(m->mlx, m->win, 8, 60, WHITE,
+        "Rotation > Q E");
+	mlx_string_put(m->mlx, m->win, 8, 75, WHITE,
+        "Quit > ESC");
+}
+
 void		put_pixel(t_img *img, int x, int y, unsigned int color)
 {
 	img->str[y * img->size_line + (x * img->bpp) + 0] = color;

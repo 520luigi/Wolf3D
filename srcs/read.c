@@ -18,19 +18,19 @@ void		append(int fd, t_mlx *m, char **tmp, char *filename)
 	int		i;
 	int		j;
 
-	if (!(fd = open(filename, O_RDONLY)) || !(m->map.height))
+	if (!(fd = open(filename, O_RDONLY)) || !(m->map.ht))
 		ft_puterror("Error, invalid file\n");
 	j = -1;
-	while (++j < m->map.height && get_next_line(fd, &line) == 1)
+	while (++j < m->map.ht && get_next_line(fd, &line) == 1)
 	{
 		tmp = ft_strsplit(line, ' ');
 		free(line);
-		if (!(m->map.grid[j] = (int *)ft_memalloc(sizeof(int) * m->map.width)))
+		if (!(m->map.grid[j] = (int *)ft_memalloc(sizeof(int) * m->map.wd)))
 			ft_puterror("Error, invalid map");
 		i = -1;
-		while (++i < m->map.width)
-			m->map.grid[j][i] = (i != 0 && i != m->map.width - 1 && j != 0 &&
-					j != m->map.height - 1) ? ft_atoi(tmp[i]) : 1;
+		while (++i < m->map.wd)
+			m->map.grid[j][i] = (i != 0 && i != m->map.wd - 1 && j != 0 &&
+					j != m->map.ht - 1) ? ft_atoi(tmp[i]) : 1;
 		ft_free_2d((void**)tmp);
 	}
 	close(fd);
@@ -41,20 +41,20 @@ void		read_input(t_mlx *m, char *filename, int fd)
 	char	*line;
 	char	**tmp;
 
-	m->map.width = 0;
-	m->map.height = -1;
-	while (++m->map.height >= 0 && get_next_line(fd, &line) == 1)
+	m->map.wd = 0;
+	m->map.ht = -1;
+	while (++m->map.ht >= 0 && get_next_line(fd, &line) == 1)
 	{
 		tmp = ft_strsplit(line, ' ');
-		while (tmp[m->map.width])
-			m->map.width++;
+		while (tmp[m->map.wd])
+			m->map.wd++;
 		ft_free_2d((void**)tmp);
 		free(line);
 	}
 	close(fd);
-	if (m->map.height != m->map.width)
+	if (m->map.ht != m->map.wd)
 		ft_puterror("Invalid file, only square maps are supported!\n");
-	if (!(m->map.grid = (int **)ft_memalloc(sizeof(int *) * m->map.height)))
+	if (!(m->map.grid = (int **)ft_memalloc(sizeof(int *) * m->map.ht)))
 		ft_puterror("Error, no map\n");
 	append(fd, m, tmp, filename);
 }
