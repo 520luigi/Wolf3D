@@ -6,7 +6,7 @@
 #    By: szheng <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/27 20:34:54 by szheng            #+#    #+#              #
-#    Updated: 2018/11/29 09:26:37 by szheng           ###   ########.fr        #
+#    Updated: 2018/12/13 09:51:57 by szheng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,6 @@ clean:
 fclean: clean
 	@make -C libft/ fclean
 	@rm -rf $(NAME)
-	@echo "$(RED)Removed Fractol executable$(NOC)"
+	@echo "$(RED)Removed Wolf3d executable$(NOC)"
 
 re: fclean all
